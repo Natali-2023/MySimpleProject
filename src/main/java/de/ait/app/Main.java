@@ -8,6 +8,8 @@ import de.ait.services.UsersService;
 import de.ait.services.UsersServiceImpl;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,9 +17,11 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+
         UsersRepository usersRepository = new UsersRepositoryTextFileImpl("users.txt");
         UsersRepository testUserRepository = new UsersRepositoryListImpl();
         UsersService usersService = new UsersServiceImpl(usersRepository);
+
 
         while (true) {
             System.out.println("1. Вывести имена всех пользователей");
@@ -51,58 +55,10 @@ public class Main {
                     break;
 
                 case 3:
-
-                    UsersRepositoryListImpl.save(User(UsersServiceImpl.user));
-
-
-                 /*   System.out.println("Добавление нового пользователя");
-                    String writerTemp="";
-                    String temp = "";
-                    int tempAge =0 ;
-                    double tempResult;
-
-                    scanner = new Scanner(System.in);
-
-                    System.out.println("Введите имя");
-                    temp = scanner.nextLine();
-                    writerTemp=temp + "|";
-
-                    System.out.println("Введите фамилию");
-                    temp = scanner.nextLine();
-                    writerTemp=writerTemp + temp+ "|";
-
-                    System.out.println("Введите возраст");
-                    tempAge = scanner.nextInt();
-                    if (tempAge<0){
-                        System.out.println("Вы ввели отрицательное значение возраста." +
-                                " Повторите еще раз создание пользователя");
-                        break;
-
-                    }else {
-                        writerTemp = writerTemp + tempAge + "|";
-                    }
-                    System.out.println("Введите рост");
-                    try {
-                        Scanner scanner1 = new Scanner(System.in);
-                        tempResult = scanner1.nextDouble();
-
-                    }catch (Exception e){
-
-                        System.out.println("Повторите ввод значения роста через запятую");
-                        break;
-                    }
-
-                    if (tempResult>2.5){
-                        System.out.println("Вы ввели некорректное значение роста." +
-                                " Повторите еще раз создание пользователя");
-                        break;
-                    }else {
-                        writerTemp = writerTemp + tempResult ;
-                        usersRepository.addPerson(writerTemp);
-
-                    }*/
-
-                    break;
+                    User user = usersService.addNewPerson(); //создаю нового пользователя
+                    usersRepository.save(user);              //проверяю его на корректный ввод
+                    usersRepository.addPerson(user);         //добавляю его в отчет
+                      break;
 
                 case 4:
                     System.out.println("Выводим средний возраст всех пользователей");
@@ -122,7 +78,6 @@ public class Main {
                     String nameAndFamilyName = usersService.getNameAndFamilyNameOfShortest();
                     System.out.println(nameAndFamilyName);
                     break;
-
 
                 case 0:
                     System.out.println("Выход");

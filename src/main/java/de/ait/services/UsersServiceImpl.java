@@ -93,7 +93,6 @@ public class UsersServiceImpl implements UsersService {
 
         } catch (Exception e) {
             System.out.println("Повторите ввод значения роста через запятую");
-
         }
 
         user = new User(firstNameTemp, lastNameTemp, ageTemp, heightTemp);

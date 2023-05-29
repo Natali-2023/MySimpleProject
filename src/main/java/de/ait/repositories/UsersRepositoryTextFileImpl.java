@@ -39,23 +39,43 @@ public class UsersRepositoryTextFileImpl implements UsersRepository {
     }
 
     @Override
-    public void save(User users) {
+    public void save(User user) {
+        if (user.getFirstName().equals("")) {
+            System.out.println("Вы ввели некорректные данные. Повторите ввод данных опять");
+            return;
+        }
+        if (user.getLastName().equals("")) {
+            System.out.println("Вы ввели некорректные данные. Повторите ввод данных опять");
+            return;
+        }
 
+        if (user.getAge() < 0) {
+            System.out.println("Вы ввели отрицательное значение возраста." +
+                    " Повторите еще раз создание пользователя");
+            return;
+        }
+        if (user.getHeight() > 2.5) {
+            System.out.println("Вы ввели некорректные данные. Повторите ввод данных опять");
+            return;
+        }
+       // users.add(user);
+        System.out.println("Данный пользователь успешно добавлен.");
     }
 
     @Override
-    public  void addPerson(String x) {
-        try(FileWriter writer = new FileWriter("users.txt", true))
-        {
+    public void addPerson(User user) {
+
+        try (FileWriter writer = new FileWriter("users.txt", true)) {
+            String result1 = user.getFirstName() +"|" + user.getLastName()+"|"
+                    + user.getAge() + "|" + user.getHeight();
             writer.write("\n");
-            writer.write(x);
+            writer.write(result1);
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Ошибка");
         }
     }
-
     private static User parseLine(String line) {
         String[] parsed = line.split("\\|");
         String firstName = parsed[0];

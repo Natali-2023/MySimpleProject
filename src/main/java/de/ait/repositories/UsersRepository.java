@@ -10,6 +10,6 @@ public interface UsersRepository {
     public void save (User users);
 
 
-    public void addPerson(String x);
+    public void addPerson(User user);
 
 }
